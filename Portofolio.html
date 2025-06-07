@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imam Ahmad Alghozali | Web Artisan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300;400;500;600;700&family=Chakra+Petch:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hover.css@2.3.2/css/hover-min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Chakra Petch', sans-serif;
+            scroll-behavior: smooth;
+            background: #0a0a12;
+            color: #d1d5db;
+            overflow-x: hidden;
+            cursor: none;
+        }
+        
+        .tech-font {
+            font-family: 'Teko', sans-serif;
+        }
+        
+        /* Custom cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #5e17eb;
+            border-radius: 50%;
+            position: absolute;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.2s ease, width 0.3s ease, height 0.3s ease;
+            mix-blend-mode: difference;
+        }
+        
+        .cursor.hovered {
+            width: 40px;
+            height: 40px;
+            background: rgba(94, 23, 235, 0.2);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #8b5cf6, #ec4899, #f87171);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .skill-bar {
+            transition: width 1s ease-in-out;
+        }
+        
+        .glass-effect {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+        }
+        
+        .avatar {
+            background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 50%, #f87171 100%);
+        }
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        .animate-float.delay-2s { animation-delay: 2s; }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        .animate-typing {
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+        
+        /* Glow effects */
+        .drop-shadow-glow-purple {
+            filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.7));
+        }
+        .drop-shadow-glow-red {
+            filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.7));
+        }
+        .drop-shadow-glow-blue {
+            filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.7));
+        }
+        .drop-shadow-glow-teal {
+            filter: drop-shadow(0 0 8px rgba(20, 184, 166, 0.7));
+        }
+        
+        /* Cyberpunk style scanlines */
+        .scanlines {
+            background: 
+                linear-gradient(
+                    rgba(18, 16, 16, 0) 50%, 
+                    rgba(0, 0, 0, 0.25) 50%
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255, 0, 0, 0.06),
+                    rgba(0, 255, 0, 0.02),
+                    rgba(0, 0, 255, 0.06)
+                );
+            background-size: 100% 2px, 3px 100%;
+            mix-blend-mode: screen;
+            pointer-events: none;
+            z-index: 100;
+        }
+        
+        /* 3D effect for avatar card */
+        .transform-style-preserve-3d {
+            transform-style: preserve-3d;
+        }
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .backface-hidden {
+            backface-visibility: hidden;
+        }
+        .transform-rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+        
+        /* Add these responsive styles */
+        @media (max-width: 768px) {
+            .container {
+                width: 100%;
+                padding: 1rem;
+            }
+            
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem !important;
+                line-height: 1.2;
+                text-align: center;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.25rem !important;
+                text-align: center;
+            }
+            
+            .section-title {
+                font-size: 1.75rem !important;
+            }
+            
+            .card-title {
+                font-size: 1.25rem !important;
+            }
+            
+            .text-content {
+                font-size: 0.875rem !important;
+            }
+            
+            .mobile-text-center {
+                text-align: center !important;
+            }
+            
+            .mobile-stack {
+                flex-direction: column !important;
+                align-items: center !important;
+            }
+            
+            .mobile-p-adjust {
+                padding: 1rem !important;
+            }
+            
+            .tech-stack-icons {
+                gap: 0.5rem;
+                justify-content: center;
+            }
+            
+            .tech-stack-icons img {
+                width: 2rem;
+                height: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 1.75rem !important;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem !important;
+            }
+
+            .mobile-small-text {
+                font-size: 0.75rem !important;
+            }
+
+            .button-text {
+                font-size: 0.875rem !important;
+            }
+        }
+
+        /* Enhanced Background Animation */
+        .animated-bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background: linear-gradient(45deg, #0a0a12, #1a1a2e);
+            overflow: hidden;
+        }
+
+        .animated-bg::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(94, 23, 235, 0.1),
+                rgba(94, 23, 235, 0.1) 2px,
+                transparent 2px,
+                transparent 10px
+            );
+            animation: bg-scroll 20s linear infinite;
+        }
+
+        @keyframes bg-scroll {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Enhanced Cursor */
+        .cursor-dot,
+        .cursor-outline {
+            pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            transition: opacity 0.3s ease;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background: #fff;
+        }
+
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.2s ease-out;
+        }
+
+        .cursor-hover {
+            transform: translate(-50%, -50%) scale(1.5);
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(94, 23, 235, 0.5);
+        }
+
+        /* Enhanced Card Effects */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 45px 0 rgba(94, 23, 235, 0.3);
+            border-color: rgba(94, 23, 235, 0.2);
+        }
+
+        /* Particle Effect */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Text Effects */
+        .gradient-animated {
+            background: linear-gradient(
+                90deg,
+                #ff3366,
+                #ba265d,
+                #5e17eb,
+                #0066ff,
+                #5e17eb,
+                #ba265d,
+                #ff3366
+            );
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 5s linear infinite;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Add loading screen -->
+    <div class="loading">
+        <div class="loading-spinner"></div>
+    </div>
+    
+    <!-- Add scroll progress bar -->
+    <div class="scroll-progress"></div>
+    
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-effect py-4 px-6 md:px-12">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold tracking-tight">
+                <span class="gradient-text">JD</span>
+            </a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="hover:text-purple-400 transition-colors">Home</a>
+                <a href="#about" class="hover:text-purple-400 transition-colors">About</a>
+                <a href="#projects" class="hover:text-purple-400 transition-colors">Projects</a>
+                <a href="#skills" class="hover:text-purple-400 transition-colors">Skills</a>
+                <a href="#contact" class="hover:text-purple-400 transition-colors">Contact</a>
+            </div>
+            <button id="mobile-menu" class="md:hidden text-xl">☰</button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-nav" class="hidden glass-effect mt-3 py-4 rounded-lg">
+            <div class="flex flex-col items-center space-y-3">
+                <a href="#home" class="w-full text-center py-2 hover:bg-slate-700 rounded">Home</a>
+                <a href="#about" class="w-full text-center py-2 hover:bg-slate-700 rounded">About</a>
+                <a href="#projects" class="w-full text-center py-2 hover:bg-slate-700 rounded">Projects</a>
+                <a href="#skills" class="w-full text-center py-2 hover:bg-slate-700 rounded">Skills</a>
+                <a href="#contact" class="w-full text-center py-2 hover:bg-slate-700 rounded">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center pt-20 relative overflow-hidden">
+        <!-- Animated background elements -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-900 rounded-full filter blur-3xl opacity-20 animate-float"></div>
+            <div class="absolute bottom-1/3 right-1/4 w-80 h-80 bg-indigo-900 rounded-full filter blur-3xl opacity-20 animate-float delay-2s"></div>
+        </div>
+        
+        <!-- Cyberpunk style scanlines overlay -->
+        <div class="scanlines fixed inset-0 pointer-events-none"></div>
+        
+        <div class="container mx-auto px-6 md:px-12 py-12">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-12 md:mb-0">
+                    <div class="hvr-buzz-out">
+                        <h1 class="hero-title text-5xl md:text-7xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-400">
+                            <span class="inline-block animate__animated animate__fadeInDown">IMAM</span>
+                            <span class="inline-block animate__animated animate__fadeInDown animate__delay-1s">AHMAD</span>
+                            <span class="inline-block animate__animated animate__fadeInDown animate__delay-2s">ALGHOZALI</span>
+                        </h1>
+                    </div>
+                    <h2 class="hero-subtitle text-2xl md:text-4xl mb-6 text-slate-300 tech-font animate__animated animate__fadeIn animate__delay-1s">
+                        <span class="text-purple-400">&lt;</span> Full Stack Web Artisan <span class="text-purple-400">/&gt;</span>
+                    </h2>
+                    <div class="typing-container mb-8">
+                        <p class="text-xl md:text-2xl text-slate-300 font-mono border-r-2 border-purple-500 inline-block pr-2 animate-typing overflow-hidden whitespace-nowrap">
+                            Crafting digital experiences with Vue.js & Laravel
+                        </p>
+                    </div>
+                    <div class="flex space-x-4 animate__animated animate__fadeInUp animate__delay-2s">
+                        <a href="#projects" class="hvr-float px-6 py-3 rounded-full bg-transparent border-2 border-purple-500 text-white hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-500 transition-all relative overflow-hidden group">
+                            <span class="relative z-10">Explore My Work</span>
+                            <span class="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-500 transform translate-x-full group-hover:translate-x-0 transition-transform duration-300"></span>
+                        </a>
+                        <a href="#contact" class="hvr-float px-6 py-3 rounded-full bg-transparent border-2 border-purple-500 text-white hover:bg-purple-500/10 transition-all relative group">
+                            <span class="relative z-10">Connect With Me</span>
+                            <span class="absolute inset-0 border-t-2 border-purple-400 w-0 group-hover:w-full transition-all duration-500"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <div class="relative hvr-wobble-horizontal">
+                        <!-- 3D flipped card effect -->
+                        <div class="avatar-card w-64 h-64 md:w-80 md:h-80 rounded-xl relative transform-style-preserve-3d perspective-1000 transition-transform duration-700">
+                            <div class="absolute w-full h-full backface-hidden rounded-xl bg-gradient-to-br from-purple-900 to-blue-900 flex items-center justify-center text-6xl text-white">
+                                IAA
+                            </div>
+                            <div class="absolute w-full h-full backface-hidden rounded-xl transform-rotate-y-180 bg-gradient-to-tr from-pink-900 to-indigo-900 flex items-center justify-center text-4xl text-center px-4">
+                                VUE • LARAVEL • PHP
+                            </div>
+                        </div>
+                        <!-- Floating elements around avatar -->
+                        <div class="absolute -top-8 -left-8 w-16 h-16 rounded-full bg-purple-600/30 filter blur-xl animate-pulse"></div>
+                        <div class="absolute -bottom-8 -right-8 w-24 h-24 rounded-full bg-blue-600/30 filter blur-xl animate-pulse delay-700"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tech stack visualization -->
+            <div class="mt-24 animate__animated animate__fadeIn animate__delay-3s">
+                <div class="flex justify-center space-x-10">
+                    <div class="stack-icon hvr-grow-rotate">
+                        <img src="https://cdn.worldvectorlogo.com/logos/vue-9.svg" alt="Vue.js" class="w-14 h-14 filter drop-shadow-glow-purple">
+                    </div>
+                    <div class="stack-icon hvr-grow-rotate">
+                        <img src="https://cdn.worldvectorlogo.com/logos/laravel-2.svg" alt="Laravel" class="w-14 h-14 filter drop-shadow-glow-red">
+                    </div>
+                    <div class="stack-icon hvr-grow-rotate">
+                        <img src="https://cdn.worldvectorlogo.com/logos/php-1.svg" alt="PHP" class="w-14 h-14 filter drop-shadow-glow-blue">
+                    </div>
+                    <div class="stack-icon hvr-grow-rotate">
+                        <img src="https://cdn.worldvectorlogo.com/logos/postgresql.svg" alt="PostgreSQL" class="w-14 h-14 filter drop-shadow-glow-teal">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20">
+        <div class="container mx-auto px-6 md:px-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">
+                About <span class="gradient-text">Me</span>
+            </h2>
+            <div class="glass-effect max-w-4xl mx-auto p-8 md:p-12">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="md:col-span-2">
+                        <h3 class="text-xl font-semibold mb-4">My Journey</h3>
+                        <p class="mb-4 text-slate-300">
+                            I'm a passionate frontend developer with a knack for creating visually stunning and highly functional user interfaces. With over 5 years of experience in the field, I've worked with startups and established companies to build digital products that users love.
+                        </p>
+                        <p class="mb-4 text-slate-300">
+                            My approach combines technical excellence with aesthetic design principles to create products that not only work beautifully but also provide delightful user experiences.
+                        </p>
+                        <p class="text-slate-300">
+                            When I'm not coding, you can find me exploring photography, traveling to beautiful places, or attending tech conferences to stay at the forefront of industry innovation.
+                        </p>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-40 h-40 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center text-5xl text-white mb-4">
+                            <span>5+</span>
+                        </div>
+                        <p class="text-center text-slate-300">Years of Experience</p>
+                        <div class="w-40 h-40 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 flex items-center justify-center text-5xl text-white my-8">
+                            <span>42+</span>
+                        </div>
+                        <p class="text-center text-slate-300">Projects Completed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20">
+        <div class="container mx-auto px-6 md:px-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">
+                My <span class="gradient-text">Projects</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="project-card glass-effect p-6 rounded-xl transition-all duration-300">
+                    <div class="h-48 rounded-lg bg-gradient-to-r from-indigo-800 to-purple-800 mb-4 flex items-center justify-center">
+                        <span class="text-white text-xl font-medium">E-Commerce Platform</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Shoppe</h3>
+                    <p class="text-slate-300 mb-4">A modern e-commerce platform with intuitive UI and smooth shopping experience.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-3 py-1 bg-slate-800 rounded-full text-sm">React</span>
+                        <span class="px-3 py-1 bg-slate-800 rounded-full text-sm">Node.js</span>
+                        <span class="px-3 py-1 bg-slate-800 rounded-full text-sm">MongoDB</span>
+                    </div>
+                    <a href="#" class="inline-block text-purple-400 hover:text-purple-300 font-medium transition-colors">
+                        View Project →
+                    </a>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-card glass-effect p-6 rounded-xl transition-all duration-300">
+                    <div class="h-48 rounded-lg bg-gradient-to-r from-rose-800 to-pink-700 mb-4 flex items-center justify-center">
+                        <span class="text-white text-xl font-medium">Task Management App</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">TaskFlow</h3>
+                    <p class="text-slate-300 mb-4">Productivity app with kanban boards, calendar integration, and analytics.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-3 py-1 bg-slate-800 rounded-full text-sm">Vue.js</span>
+                        <span class="px-3 py-1 bg-slate-800 rounded-full text-sm">Firebase</span>
+                        <span class="px-3 py-1 bg-slate-800 rounded-full text-sm">Tailwind CSS</span>
+                    </div>
+                    <a href="#" class="inline-block text-purple-400 hover:text-purple-300 font-medium transition-colors">
+                        View Project →
+                    </a>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-card glass-effect p-6 rounded-xl transition-all duration-300">
+                    <div class="h-48 rounded-lg bg-gradient-to-r from-blue-800 to-cyan-700 mb-4 flex items-center justify-center">
+                        <span class="text-white text-xl font-medium">Travel Booking App</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">JourneyEase</h3>
+                    <p class="text-slate-300 mb-4">All-in-one travel booking experience with map integration and AI recommendations.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-3 py-1 bg-slate-800 rounded-full text-sm">Next.js</span>
+                        <span class="px-3 py-1 bg-slate-800 rounded-full text-sm">GraphQL</span>
+                        <span class="px-3 py-1 bg-slate-800 rounded-full text-sm">PostgreSQL</span>
+                    </div>
+                    <a href="#" class="inline-block text-purple-400 hover:text-purple-300 font-medium transition-colors">
+                        View Project →
+                    </a>
+                </div>
+            </div>
+            <div class="text-center mt-12">
+                <a href="#" class="px-6 py-3 rounded-full border-2 border-purple-500 hover:bg-purple-500/20 transition-colors inline-block">
+                    View All Projects
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20">
+        <div class="container mx-auto px-6 md:px-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">
+                My <span class="gradient-text">Skills</span>
+            </h2>
+            <div class="glass-effect max-w-4xl mx-auto p-8 md:p-12">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <!-- Left Column -->
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">Technical Skills</h3>
+                        <div class="space-y-6">
+                            <!-- Skill 1 -->
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span>HTML/CSS</span>
+                                    <span>95%</span>
+                                </div>
+                                <div class="w-full bg-slate-700 rounded-full h-2.5">
+                                    <div class="skill-bar h-2.5 rounded-full bg-gradient-to-r from-purple-600 to-pink-500" style="width: 95%"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Skill 2 -->
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span>JavaScript</span>
+                                    <span>90%</span>
+                                </div>
+                                <div class="w-full bg-slate-700 rounded-full h-2.5">
+                                    <div class="skill-bar h-2.5 rounded-full bg-gradient-to-r from-purple-600 to-pink-500" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Skill 3 -->
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span>React</span>
+                                    <span>85%</span>
+                                </div>
+                                <div class="w-full bg-slate-700 rounded-full h-2.5">
+                                    <div class="skill-bar h-2.5 rounded-full bg-gradient-to-r from-purple-600 to-pink-500" style="width: 85%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Column -->
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">Professional Skills</h3>
+                        <div class="space-y-6">
+                            <!-- Skill 1 -->
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span>UI/UX Design</span>
+                                    <span>90%</span>
+                                </div>
+                                <div class="w-full bg-slate-700 rounded-full h-2.5">
+                                    <div class="skill-bar h-2.5 rounded-full bg-gradient-to-r from-purple-600 to-pink-500" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Skill 2 -->
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span>Problem Solving</span>
+                                    <span>88%</span>
+                                </div>
+                                <div class="w-full bg-slate-700 rounded-full h-2.5">
+                                    <div class="skill-bar h-2.5 rounded-full bg-gradient-to-r from-purple-600 to-pink-500" style="width: 88%"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Skill 3 -->
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span>Communication</span>
+                                    <span>92%</span>
+                                </div>
+                                <div class="w-full bg-slate-700 rounded-full h-2.5">
+                                    <div class="skill-bar h-2.5 rounded-full bg-gradient-to-r from-purple-600 to-pink-500" style="width: 92%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-12">
+                    <h3 class="text-xl font-semibold mb-6">Tools & Technologies</h3>
+                    <div class="grid grid-cols-3 md:grid-cols-6 gap-4">
+                        <div class="bg-slate-800 p-4 rounded-xl flex flex-col items-center">
+                            <div class="w-12 h-12 bg-slate-700 rounded-lg flex items-center justify-center text-xl mb-2">🖥️</div>
+                            <span class="text-sm text-center">VS Code</span>
+                        </div>
+                        <div class="bg-slate-800 p-4 rounded-xl flex flex-col items-center">
+                            <div class="w-12 h-12 bg-slate-700 rounded-lg flex items-center justify-center text-xl mb-2">🎨</div>
+                            <span class="text-sm text-center">Figma</span>
+                        </div>
+                        <div class="bg-slate-800 p-4 rounded-xl flex flex-col items-center">
+                            <div class="w-12 h-12 bg-slate-700 rounded-lg flex items-center justify-center text-xl mb-2">📦</div>
+                            <span class="text-sm text-center">Webpack</span>
+                        </div>
+                        <div class="bg-slate-800 p-4 rounded-xl flex flex-col items-center">
+                            <div class="w-12 h-12 bg-slate-700 rounded-lg flex items-center justify-center text-xl mb-2">🚀</div>
+                            <span class="text-sm text-center">Git/GitHub</span>
+                        </div>
+                        <div class="bg-slate-800 p-4 rounded-xl flex flex-col items-center">
+                            <div class="w-12 h-12 bg-slate-700 rounded-lg flex items-center justify-center text-xl mb-2">📝</div>
+                            <span class="text-sm text-center">Jest</span>
+                        </div>
+                        <div class="bg-slate-800 p-4 rounded-xl flex flex-col items-center">
+                            <div class="w-12 h-12 bg-slate-700 rounded-lg flex items-center justify-center text-xl mb-2">🌀</div>
+                            <span class="text-sm text-center">Docker</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20">
+        <div class="container mx-auto px-6 md:px-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">
+                Get In <span class="gradient-text">Touch</span>
+            </h2>
+            <div class="glass-effect max-w-4xl mx-auto p-8 md:p-12">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-6">Let's talk about your project!</h3>
+                        <p class="text-slate-300 mb-6">
+                            I'm currently available for freelance projects and full-time opportunities. Let's create something amazing together!
+                        </p>
+                        
+                        <!-- Download Resume Button -->
+                        <a href="#" class="inline-block mb-8 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-500 rounded-lg hover:opacity-90 transition-all">
+                            <div class="flex items-center space-x-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                                <span>Download Resume</span>
+                            </div>
+                        </a>
+
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-purple-900/30 backdrop-blur-sm flex items-center justify-center text-purple-400 mr-4">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-slate-300 text-sm">Email</p>
+                                    <a href="mailto:imamahmad@example.com" class="hover:text-purple-400 transition-colors">imamahmad@example.com</a>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-purple-900/30 backdrop-blur-sm flex items-center justify-center text-purple-400 mr-4">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-slate-300 text-sm">Location</p>
+                                    <p>Jakarta, Indonesia</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex space-x-4 mt-8">
+                            <a href="https://www.linkedin.com/in/imamahmadalghozali" target="_blank" class="w-12 h-12 rounded-full bg-slate-800/50 backdrop-blur-sm flex items-center justify-center hover:bg-purple-900/50 transition-all group">
+                                <svg class="w-6 h-6 text-slate-400 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                                </svg>
+                            </a>
+                            <a href="https://github.com/yourusername" target="_blank" class="w-12 h-12 rounded-full bg-slate-800/50 backdrop-blur-sm flex items-center justify-center hover:bg-purple-900/50 transition-all group">
+                                <svg class="w-6 h-6 text-slate-400 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <form class="space-y-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium mb-1">Name</label>
+                                <input type="text" id="name" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Your name">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium mb-1">Email</label>
+                                <input type="email" id="email" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="you@example.com">
+                            </div>
+                            <div>
+                                <label for="message" class="block text-sm font-medium mb-1">Message</label>
+                                <textarea id="message" rows="4" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="How can I help you?"></textarea>
+                            </div>
+                            <button type="submit" class="w-full py-3 rounded-lg bg-gradient-to-r from-purple-600 to-pink-500 text-white font-medium hover:opacity-90 transition-opacity">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="text-center">
+                <a href="#" class="text-2xl font-bold tracking-tight inline-block mb-6">
+                    <span class="gradient-text">JD</span>
+                </a>
+                <div class="flex justify-center space-x-8 mb-6">
+                    <a href="#" class="hover:text-purple-400 transition-colors">Home</a>
+                    <a href="#about" class="hover:text-purple-400 transition-colors">About</a>
+                    <a href="#projects" class="hover:text-purple-400 transition-colors">Projects</a>
+                    <a href="#contact" class="hover:text-purple-400 transition-colors">Contact</a>
+                </div>
+                <p class="text-slate-400">© 2023 John Doe. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Add animated background -->
+    <div class="animated-bg"></div>
+
+    <!-- Add particle effect container -->
+    <div id="particles-js" class="particles"></div>
+
+    <!-- Custom cursor element -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+    
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Add loading screen handler
+        window.addEventListener('load', () => {
+            document.querySelector('.loading').style.display = 'none';
+        });
+        
+        // Add scroll progress handler
+        window.addEventListener('scroll', () => {
+            const scrollProgress = document.querySelector('.scroll-progress');
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            scrollProgress.style.width = `${scrolled}%`;
+        });
+        
+        // Enhanced cursor effect
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+        
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+            
+            cursorDot.style.transform = `translate3d(${posX}px, ${posY}px, 0)`;
+            cursorOutline.style.transform = `translate3d(${posX}px, ${posY}px, 0)`;
+        });
+
+        document.querySelectorAll('a, button, .glass-card').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorOutline.classList.add('cursor-hover');
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                cursorOutline.classList.remove('cursor-hover');
+            });
+        });
+        
+        // Initialize particles
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 50, density: { enable: true, value_area: 800 } },
+                color: { value: '#5e17eb' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#5e17eb',
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: true,
+                    out_mode: 'out'
+                }
+            }
+        });
+        
+        // 3D avatar card flip
+        const avatarCard = document.querySelector('.avatar-card');
+        if(avatarCard) {
+            avatarCard.addEventListener('mouseenter', () => {
+                avatarCard.style.transform = 'rotateY(180deg)';
+            });
+            avatarCard.addEventListener('mouseleave', () => {
+                avatarCard.style.transform = 'rotateY(0deg)';
+            });
+        }
+        
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu');
+        const mobileNav = document.getElementById('mobile-nav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileNav.classList.toggle('hidden');
+        });
+        
+        // Close mobile menu when clicking a link
+        const mobileLinks = document.querySelectorAll('#mobile-nav a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.add('hidden');
+            });
+        });
+        
+        // Animate skill bars when scrolled into view
+        const skillBars = document.querySelectorAll('.skill-bar');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Get the width from style attribute
+                    const width = entry.target.style.width;
+                    // Reset to 0 for animation
+                    entry.target.style.width = '0';
+                    // Wait a moment for the reset to take effect
+                    setTimeout(() => {
+                        entry.target.style.width = width;
+                    }, 100);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        skillBars.forEach(bar => {
+            observer.observe(bar);
+        });
+        
+        // Add smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Add mobile menu improvements
+        document.addEventListener('click', (e) => {
+            const mobileNav = document.getElementById('mobile-nav');
+            const mobileMenuBtn = document.getElementById('mobile-menu');
+            
+            if (!mobileNav.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                mobileNav.classList.add('hidden');
+            }
+        });
+        
+        // Add touch support for 3D card
+        if ('ontouchstart' in window) {
+            const avatarCard = document.querySelector('.avatar-card');
+            if (avatarCard) {
+                let isFlipped = false;
+                avatarCard.addEventListener('touchstart', () => {
+                    isFlipped = !isFlipped;
+                    avatarCard.style.transform = isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
+                });
+            }
+        }
+        
+        // Improve scroll performance
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            if (scrollTimeout) {
+                window.cancelAnimationFrame(scrollTimeout);
+            }
+            
+            scrollTimeout = window.requestAnimationFrame(() => {
+                // Add your scroll-based animations here
+            });
+        });
+
+        // Add scroll reveal animations
+        ScrollReveal().reveal('.glass-card', {
+            delay: 200,
+            distance: '20px',
+            origin: 'bottom',
+            duration: 800,
+            interval: 100
+        });
+    </script>
+</body>
+</html>
